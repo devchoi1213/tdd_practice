@@ -22,6 +22,7 @@ describe('ProductSynchronizer test using mock', () => {
     when(validatorMock.isValid(product)).thenReturn(false);
     const validator = instance(validatorMock);
 
+    //TODO 강의에서 자바 인터페이스로 Mock을 생성했는데 typescript로는 어떤 식으로 인터페이스로 Mock을 생성할 수 있는지 알아보고 적용할 것
     const inventoryMock: ProductInventorySpy = mock(ProductInventorySpy);
     const inventory = instance(inventoryMock)
 
