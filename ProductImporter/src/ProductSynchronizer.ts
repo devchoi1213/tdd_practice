@@ -10,10 +10,10 @@ export default class ProductSynchronizer {
   ) {}
 
   run() {
-    for (let product of this._importer.fetchProduct()) {
-      if ( this._validator.isValid(product)) {
+    this._importer.fetchProduct().forEach(product => {
+      if(this._validator.isValid(product)) {
         this._inventory.upsertProduct(product)
       }
-    }
+    })
   }
 }
