@@ -1,7 +1,7 @@
 import AppModel from "./AppModel";
 import readline from "readline/promises";
 import { stdin as input, stdout as output } from 'node:process';
-import PositiveIntegerGeneratorSub from "../test/PositiveIntegerGeneratorSub";
+import PositiveIntegerGeneratorStub from "../test/PositiveIntegerGeneratorStub";
 
 const rl = readline.createInterface({ input, output, terminal: true });
 
@@ -16,7 +16,7 @@ class App {
 }
 
 
-const appModel = new AppModel(new PositiveIntegerGeneratorSub([50]));
+const appModel = new AppModel(new PositiveIntegerGeneratorStub([50]));
 
 (async function () {
   return await App.runLoop(appModel);

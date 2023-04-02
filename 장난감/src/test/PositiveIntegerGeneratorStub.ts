@@ -1,6 +1,6 @@
 import PositiveIntegerGenerator from "../numberguessing/PositiveIntegerGenerator";
 
-export default class PositiveIntegerGeneratorSub implements PositiveIntegerGenerator {
+export default class PositiveIntegerGeneratorStub implements PositiveIntegerGenerator {
   private index: number;
   constructor(private numbers: number[]) {
     this.index = 0;

@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
 import AppModel from "../numberguessing/AppModel";
-import PositiveIntegerGeneratorSub from "./PositiveIntegerGeneratorSub";
+import PositiveIntegerGeneratorStub from "./PositiveIntegerGeneratorStub";
 // import
 
 
@@ -8,17 +8,17 @@ describe('AppModel test', () => {
   const NEW_LINE = '\n'
   const SELECT_MODE_MESSAGE = `1: Single player game${NEW_LINE}2: Multiplayer game${NEW_LINE}3: Exit${NEW_LINE}Enter selection`;
   test('sut is uncompleted when it is initialized', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]))
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]))
     expect(sut.isCompleted()).toBe(false);
   });
 
   test('sut correctly prints select mode message', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]))
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]))
     expect(sut.flushOutput()).toEqual(SELECT_MODE_MESSAGE);
   });
 
   test('sut correctly exists', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("3");
 
     const actual = sut.isCompleted();
@@ -27,7 +27,7 @@ describe('AppModel test', () => {
   });
 
   test('sut correctly prints single player game start message', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.flushOutput();
     sut.processInput("1");
 
@@ -42,7 +42,7 @@ describe('AppModel test', () => {
     {answer: 89, guess: 9}
   ])
   ('sut correctly prints too low message in single player game', ({answer, guess}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([answer]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([answer]));
     sut.processInput("1");
     sut.flushOutput();
     sut.processInput(String(guess));
@@ -57,7 +57,7 @@ describe('AppModel test', () => {
     {answer: 80, guess: 81},
   ])
   ('sut correctly prints too high message in single player game', ({answer, guess}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([answer]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([answer]));
     sut.processInput("1");
     sut.flushOutput();
     sut.processInput(String(guess));
@@ -74,7 +74,7 @@ describe('AppModel test', () => {
     {answer: 100},
   ])
   ('sut correctly prints correct message in single player game ($answer)', ({answer}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([answer]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([answer]));
     sut.processInput("1");
     sut.flushOutput();
     sut.processInput(String(answer));
@@ -88,7 +88,7 @@ describe('AppModel test', () => {
     4, 10, 100
   ])
   ('sut correctly prints guess count if single player game finished', (fails) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("1");
     for (let i = 0; i < fails; i++) {
       sut.processInput("30");
@@ -102,7 +102,7 @@ describe('AppModel test', () => {
   });
 
   test('sut correctly prints one guess count if single player game finished', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("1");
     sut.flushOutput();
     sut.processInput("50");
@@ -113,7 +113,7 @@ describe('AppModel test', () => {
   });
 
   test('sut prints select mode if single player game finished', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("1");
     sut.flushOutput();
     sut.processInput("50");
@@ -124,7 +124,7 @@ describe('AppModel test', () => {
   });
 
   test('sut returns to mode if single player game finished', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("1");
     sut.processInput("50");
     sut.processInput("3");
@@ -137,7 +137,7 @@ describe('AppModel test', () => {
   test.each([
     {answers: [100, 10, 1]}
   ])('sut generates answer for each game', ({answers}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub(answers));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub(answers));
     for (const answer of answers) {
       sut.processInput("1");
       sut.flushOutput();
@@ -150,7 +150,7 @@ describe('AppModel test', () => {
   });
 
   test('sut correctly prints multiplayer game setup message', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.flushOutput();
     sut.processInput("2");
 
@@ -160,7 +160,7 @@ describe('AppModel test', () => {
   });
 
   test('sut correctly prints multiplayer game start message', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput("Foo, Bar");
@@ -187,7 +187,7 @@ describe('AppModel test', () => {
       player3: "Bar",
     }
   ])('sut correctly prompts first player name ($player1)', ({player1, player2, player3}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput(`${player1},${player2},${player3}`)
@@ -214,7 +214,7 @@ describe('AppModel test', () => {
       player3: "Bar",
     }
   ])('sut correctly prompts second player name ($player2)', ({player1, player2, player3}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput(`${player1},${player2},${player3}`)
@@ -243,7 +243,7 @@ describe('AppModel test', () => {
       player3: "Bar",
     }
   ])('sut correctly prompts third player name ($player3)', ({player1, player2, player3}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput(`${player1},${player2},${player3}`)
@@ -274,7 +274,7 @@ describe('AppModel test', () => {
       player3: "Bar",
     }
   ])('sut correctly rounds players ($player3)', ({player1, player2, player3}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput(`${player1},${player2},${player3}`)
@@ -304,7 +304,7 @@ describe('AppModel test', () => {
       lastPlayer: "Bar",
     },
   ])('sut correctly prints too low message in multiplayer game (lastPlayer)', ({answer, guess, fails, lastPlayer}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([answer]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([answer]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput(`Foo,Bar,Baz`)
@@ -333,7 +333,7 @@ describe('AppModel test', () => {
       lastPlayer: "Bar",
     },
   ])('sut correctly prints too high message in multiplayer game (lastPlayer)', ({answer, guess, fails, lastPlayer}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([answer]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([answer]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput(`Foo,Bar,Baz`)
@@ -361,8 +361,8 @@ describe('AppModel test', () => {
       fails: 2,
       lastPlayer: "Bar",
     },
-  ])('sut correctly prints correct message in multiplayer game (lastPlayer)', ({answer, guess, fails, lastPlayer}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([answer]));
+  ])('sut correctly prints correct message in multiplayer game (lastPlayer)', ({answer, guess, fails}) => {
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([answer]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput(`Foo,Bar,Baz`)
@@ -399,7 +399,7 @@ describe('AppModel test', () => {
       winner: "Bar",
     },
   ])('sut correctly prints winner if multiplayer game finished (lastPlayer)', ({fails, winner}) => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("2");
     sut.flushOutput();
     sut.processInput(`Foo,Bar,Baz`)
@@ -415,7 +415,7 @@ describe('AppModel test', () => {
   });
 
   test('sut prints select mode if multiplayer game finished', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("2");
     sut.processInput(`Foo,Bar,Baz`)
     sut.flushOutput();
@@ -427,7 +427,7 @@ describe('AppModel test', () => {
   });
 
   test('sut returns to mode select mode if multiplayer game finished', () => {
-    const sut = new AppModel(new PositiveIntegerGeneratorSub([50]));
+    const sut = new AppModel(new PositiveIntegerGeneratorStub([50]));
     sut.processInput("2");
     sut.processInput(`Foo,Bar,Baz`)
     sut.processInput("20");
